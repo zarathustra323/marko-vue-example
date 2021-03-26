@@ -1,0 +1,14 @@
+<!-- JS statements within marko files must start with a dollar sign ($) -->
+$ const { id, type, pageNode } = input;
+
+<marko-web-document>
+  <@container>
+    <@page>
+      <marko-web-resolve-page|{ resolved: content }| node=pageNode>
+        <!-- because this is rendered in node, the log will display in the _server_ terminal, not in the browser -->
+        $ console.log(content);
+        <h1>${content.get("name")}</h1>
+      </marko-web-resolve-page>
+    </@page>
+  </@container>
+</marko-web-document>
