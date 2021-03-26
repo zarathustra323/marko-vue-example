@@ -1,0 +1,63 @@
+version: '3.7'
+
+x-node-defaults: &node
+  tty: true
+  init: true
+  image: node:10.15
+  entrypoint: ["node"]
+  working_dir: /root
+  restart: always
+  volumes:
+    - ./:/root:cached
+    - ./node_modules:/root/node_modules:delegated
+    - yarn-cache:/.yarn-cache
+
+x-env-defaults: &env
+  NEW_RELIC_ENABLED: ${NEW_RELIC_ENABLED-0}
+  NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
+  NODE_ENV: development
+  YARN_CACHE_FOLDER: /.yarn-cache
+
+x-env-virgon: &env-virgon
+  GRAPHQL_URI: ${GRAPHQL_URI-https://graphql.virgon.base.parameter1.com}
+  OEMBED_URI: ${OEMBED_URI-https://oembed.virgon.base.parameter1.com}
+  RSS_URI: ${RSS_URI-https://rss.virgon.base.parameter1.com}
+  SITEMAPS_URI: ${SITEMAPS_URI-https://sitemaps.virgon.base.parameter1.com}
+
+x-site-command: &site-cmd
+  entrypoint: ["node_modules/.bin/basecms-website"]
+  command: ["dev", "index.js"]
+
+volumes:
+  yarn-cache: {}
+
+services:
+  terminal:
+    <<: *node
+    working_dir: /root
+    entrypoint: ["/bin/bash"]
+    environment:
+      <<: *env
+
+  yarn:
+    <<: *node
+    working_dir: /root
+    entrypoint: ["yarn"]
+    environment:
+      <<: *env
+
+  ovd:
+    <<: *node
+    <<: *site-cmd
+    working_dir: /root/sites/overdriveonline.com
+    environment:
+      <<: *env
+      <<: *env-virgon
+      PORT: 80
+      EXPOSED_PORT: 9916
+      LIVERELOAD_PORT: 29716
+      TENANT_KEY: randallreilly_all
+      SITE_ID: 5fce561dd28860bc33b823ce
+    ports:
+      - "9916:80"
+      - "29716:29716"

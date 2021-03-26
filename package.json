@@ -1,0 +1,22 @@
+{
+  "name": "@parameter1/marko-vue-example",
+  "author": "Jacob Bare <jacob@parameter1.com>",
+  "repository": "https://github.com/zarathustra323/marko-vue-example.git",
+  "license": "MIT",
+  "private": true,
+  "root": true,
+  "workspaces": [
+    "sites/*"
+  ],
+  "scripts": {
+    "compile": "lerna run compile",
+    "lint": "lerna run lint",
+    "lint:css": "lerna run lint:css",
+    "lint:js": "lerna run lint:js",
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "@parameter1/base-cms-marko-compiler": "^2.0.0",
+    "lerna": "^3.22.1"
+  }
+}
