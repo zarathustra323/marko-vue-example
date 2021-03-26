@@ -1,5 +1,5 @@
 <template>
-  <div class="my-cool-carousel">
+  <div :class="blockName">
     <h3>Vue component: My cool carousel</h3>
     <image-wrapper
       v-for="image in images"
@@ -8,6 +8,7 @@
       :alt="image.alt"
       :caption="image.caption"
       :credit="image.credit"
+      :block-name="blockName"
     />
   </div>
 </template>
@@ -25,5 +26,9 @@ export default {
       default: () => [],
     },
   },
+
+  data: () => ({
+    blockName: 'my-cool-carousel',
+  }),
 };
 </script>

@@ -2,3 +2,31 @@ body {
   font-family: sans-serif;
   font-size: 1rem;
 }
+
+//
+.my-cool-carousel {
+  &__image-wrapper {
+    width: 400px;
+    margin-bottom: 2rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__caption {
+    margin-bottom: .25rem;
+    font-size: .825rem;
+    color: #666;
+  }
+
+  &__credit {
+    &::before {
+      content: "Credit: ";
+    }
+    margin-bottom: 0;
+    font-size: .75rem;
+    color: #999;
+  }
+}

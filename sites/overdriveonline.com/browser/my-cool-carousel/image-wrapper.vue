@@ -1,18 +1,31 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <div class="my-cool-carousel__image-wrapper">
+  <div :class="`${blockName}__image-wrapper`">
     <img
       :src="src"
       :alt="alt"
+      :class="`${blockName}__image`"
     >
-    <p v-if="caption" v-html="caption" />
-    <small v-if="credit" v-html="credit" />
+    <p
+      v-if="caption"
+      :class="`${blockName}__caption`"
+      v-html="caption"
+    />
+    <small
+      v-if="credit"
+      :class="`${blockName}__credit`"
+      v-html="credit"
+    />
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    blockName: {
+      type: String,
+      required: true,
+    },
     src: {
       type: String,
       required: true,
